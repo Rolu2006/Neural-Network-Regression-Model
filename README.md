@@ -52,6 +52,7 @@ import torch.optim as optim
 import pandas as pd
 import matplotlib.pyplot as plt
 data = pd.read_csv("Salary_Data.csv")
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=33)
 
 print("\nSalary Dataset:")
 print(data.head(10))   # 👈 displays table like Excel view

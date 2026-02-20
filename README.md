@@ -5,12 +5,17 @@
 To develop a neural network regression model for the given dataset.
 
 ## THEORY
-
-Explain the problem statement
-
+A neural network regression model is used to predict continuous numerical values from input data. It learns the relationship between input and output variables by adjusting weights through training. The network consists of an input layer, hidden layers, and an output layer that produces the predicted value. Hidden layers use activation functions like ReLU to capture complex patterns. The model is trained using a loss function such as Mean Squared Error (MSE) to measure prediction error. Backpropagation updates weights to minimize this error. Data normalization improves training stability and performance. After training, the model is tested on unseen data to evaluate its prediction accuracy.
 ## Neural Network Model
 
-Include the neural network model diagram.
+
+
+
+
+
+<img width="888" height="915" alt="Screenshot 2026-02-20 154442" src="https://github.com/user-attachments/assets/85cb7ef2-0be7-4e23-a384-20900bea044e" />
+
+
 
 ## DESIGN STEPS
 

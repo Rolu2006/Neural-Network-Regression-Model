@@ -50,62 +50,51 @@ Evaluate the model with the testing data.
 ## PROGRAM
 ### Name: Somalaraju Rohini
 ### Register Number: 212224240156
-```python
-import torch
-import torch.nn as nn
-import torch.optim as optim
-import pandas as pd
-import matplotlib.pyplot as plt
-data = pd.read_csv("Salary_Data.csv")
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=33)
-
-print("\nSalary Dataset:")
-print(data.head(10))   # 👈 displays table like Excel view
-
-X = torch.tensor(data.iloc[:, 0].values, dtype=torch.float32).view(-1, 1)
-Y = torch.tensor(data.iloc[:, 1].values, dtype=torch.float32).view(-1, 1)
-
-# Normalize input
-X = X / X.max()
-class SalaryPredictor(nn.Module):
+```
+# Name:Somalaraju Rohini
+# Register Number:212224240156
+class NeuralNet(nn.Module):
     def __init__(self):
         super().__init__()
+        # Simple Feedforward Network
         self.fc1 = nn.Linear(1, 10)
         self.relu = nn.ReLU()
         self.fc2 = nn.Linear(10, 1)
 
+        # Store training history
+        self.history = {'loss': []}
+
     def forward(self, x):
-        x = self.relu(self.fc1(x))
+        x = self.fc1(x)
+        x = self.relu(x)
         x = self.fc2(x)
         return x
 
-model = SalaryPredictor()
 
+# Initialize the Model, Loss Function, and Optimizer
+ai_brain = NeuralNet()
 criterion = nn.MSELoss()
-optimizer = optim.Adam(model.parameters(), lr=0.01)
-losses = []
+optimizer = optim.Adam(ai_brain.parameters(), lr=0.01)
 
-for epoch in range(500):
-    optimizer.zero_grad()
-    output = model(X)
-    loss = criterion(output, Y)
-    loss.backward()
-    optimizer.step()
-    losses.append(loss.item())
 
-plt.plot(losses)
-plt.xlabel("Epochs")
-plt.ylabel("Loss")
-plt.title("Training Loss vs Epochs")
-plt.show()
+# Name: Somalaraju Rohini
+# Register Number: 212224240156
+def train_model(ai_brain, X_train, y_train, criterion, optimizer, epochs=2000):
+    for epoch in range(epochs):
+        # Forward pass
+        outputs = ai_brain(X_train)
+        loss = criterion(outputs, y_train)
 
-print("\nNew Sample Data Prediction")
+        # Backward pass and optimization
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
 
-sample = torch.tensor([[0.9]], dtype=torch.float32)  # normalized input
-prediction = model(sample)
+        # Store loss
+        ai_brain.history['loss'].append(loss.item())
 
-print(prediction)
-
+        if epoch % 200 == 0:
+            print(f'Epoch [{epoch}/{epochs}], Loss: {loss.item():.6f}')
 
 
 ```
@@ -114,7 +103,8 @@ print(prediction)
 
 
 
-<img width="382" height="284" alt="Screenshot 2026-02-06 155525" src="https://github.com/user-attachments/assets/0c071d67-970d-4b2c-8d73-89c8f6a6e0af" />
+<img width="655" height="258" alt="Screenshot 2026-03-17 185650" src="https://github.com/user-attachments/assets/f8597cf2-b6fe-4466-92c1-af1b216b3c39" />
+
 
 
 ## OUTPUT
@@ -123,8 +113,8 @@ print(prediction)
 
 
 
+<img width="1118" height="628" alt="Screenshot 2026-03-17 185723" src="https://github.com/user-attachments/assets/63723ada-1cf7-453c-bc20-f58b5c6936c3" />
 
-<img width="749" height="609" alt="Screenshot 2026-02-06 155535" src="https://github.com/user-attachments/assets/06c388a9-47ab-4d6a-8a40-1de4ca4cef56" />
 
 
 
@@ -133,15 +123,11 @@ print(prediction)
 
 
 
-<img width="729" height="127" alt="Screenshot 2026-02-06 155817" src="https://github.com/user-attachments/assets/053a2e49-dfdc-41b2-b4eb-1ae6b1523f7c" />
+<img width="1059" height="263" alt="Screenshot 2026-03-17 185805" src="https://github.com/user-attachments/assets/50b63a5f-c917-46da-999a-bb1de748d5dd" />
 
-
-
-
-
-<img width="653" height="81" alt="Screenshot 2026-02-06 155542" src="https://github.com/user-attachments/assets/beeb37c3-3199-4cad-90af-13f52de77e19" />
 
 
 ## RESULT
 
-Include your result here
+The dataset contains 30 records with 2 columns: YearsExperience and Salary, with no missing values.
+It shows a positive relationship where salary increases as years of experience increases.
